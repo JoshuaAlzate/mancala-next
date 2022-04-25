@@ -13,13 +13,13 @@ const PlayerList = ({ firstPlayer, secondPlayer }: PlayerListProps) => {
             <Grid templateColumns={['repeat(1, 1fr)', null, 'repeat(2, 1fr)', null, 'repeat(3, 1fr)']} gap={6}>
                 {firstPlayer ?
                     <GridItem >
-                        <PlayerItem name={firstPlayer.name} level={firstPlayer.level} />
+                        <PlayerItem id={firstPlayer.id} name={firstPlayer.name} level={firstPlayer.level} isReady={firstPlayer.isReady} />
                     </GridItem>
                     : null
                 }
                 {secondPlayer ?
                     <GridItem >
-                        <PlayerItem name={secondPlayer.name} level={secondPlayer.level} />
+                        <PlayerItem id={secondPlayer.id} name={secondPlayer.name} level={secondPlayer.level} isReady={secondPlayer.isReady} />
                     </GridItem>
                     : null
                 }
