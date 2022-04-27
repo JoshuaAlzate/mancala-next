@@ -2163,6 +2163,11 @@ json5@^1.0.1:
     array-includes "^3.1.4"
     object.assign "^4.1.2"
 
+konva@^8.3.5:
+  version "8.3.5"
+  resolved "https://registry.yarnpkg.com/konva/-/konva-8.3.5.tgz#017799db93f70ef6437eaa8e7776a4b32648344b"
+  integrity sha512-RjaZN8PwZN3n/AlqLmtPNozLRXd6pPo11UawTJpvuOAKEkSQSXI1EHntDRIPnrrJ/j4gU0VmPzWs7/ZgLZnAPQ==
+
 language-subtag-registry@~0.3.2:
   version "0.3.21"
   resolved "https://registry.npmjs.org/language-subtag-registry/-/language-subtag-registry-0.3.21.tgz"
@@ -2554,6 +2559,22 @@ react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
+
+react-konva@^18.0.0-0:
+  version "18.0.0-0"
+  resolved "https://registry.yarnpkg.com/react-konva/-/react-konva-18.0.0-0.tgz#9beb720f78734d6aa45fca240b8ae50877779fa8"
+  integrity sha512-ft5gmzrHExYDhdrDDGqHPdUEJDXVTtkYoAncPMir1nR/Ib/ck7wfFz/UYNLIRzKEvbXlBvFNcW/RXp8xIB3bTw==
+  dependencies:
+    react-reconciler "~0.27.0"
+    scheduler "^0.21.0"
+
+react-reconciler@~0.27.0:
+  version "0.27.0"
+  resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.27.0.tgz#360124fdf2d76447c7491ee5f0e04503ed9acf5b"
+  integrity sha512-HmMDKciQjYmBRGuuhIaKA1ba/7a+UsM5FzOZsMO2JYHt9Jh8reCb7j1eDC95NOyUlKM9KRyvdx0flBuDvYSBoA==
+  dependencies:
+    loose-envify "^1.1.0"
+    scheduler "^0.21.0"
 
 react-remove-scroll-bar@^2.1.0:
   version "2.3.0"
