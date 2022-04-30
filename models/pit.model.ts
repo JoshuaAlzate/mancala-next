@@ -1,6 +1,6 @@
 
 export interface Pit {
-    id: string;
+    id: number;
     stones: number;
     isHouse: boolean;
 }
