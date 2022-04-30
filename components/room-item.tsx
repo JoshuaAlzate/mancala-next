@@ -1,7 +1,8 @@
 import { Box, Button, Heading } from "@chakra-ui/react";
 import { RoomStatus } from "enums/RoomStatus.enum";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import getSessionPlayer from "utils/getSessionPlayer";
 import { PlayerItemProps } from "./player-item";
 
 export interface RoomItemProps {
@@ -10,6 +11,7 @@ export interface RoomItemProps {
     status?: RoomStatus;
     firstPlayer?: PlayerItemProps;
     secondPlayer?: PlayerItemProps;
+    gameID?: string;
 }
 
 const mapRoomStatus = (status: RoomStatus): string => {
@@ -25,13 +27,8 @@ const RoomItem = ({ name, status, id }: RoomItemProps) => {
 
     const [player, setPlayer] = useState<PlayerItemProps>();
     const router = useRouter();
-    useEffect(() => {
-        const currentPlayer = window.sessionStorage.getItem('currentPlayer');
-        if (currentPlayer) {
-            const sessionPlayerDetails = JSON.parse(currentPlayer);
-            setPlayer(sessionPlayerDetails);
-        }
-    }, []);
+    getSessionPlayer(setPlayer);
+
 
     const enterRoom = async () => {
         const result = await fetch(`${process.env.NEXT_PUBLIC_HOST}/room/enterRoom`, {
@@ -41,11 +38,11 @@ const RoomItem = ({ name, status, id }: RoomItemProps) => {
             method: 'PUT',
             body: JSON.stringify({
                 roomID: id,
-                player
+                playerID: player?.id
             })
         });
-        const enteredRoom = await result.json() as Promise<RoomItemProps>;
-        router.push(`/room/${(await enteredRoom).id}`)
+        const enteredRoom = await (await result.json() as Promise<RoomItemProps>);
+        router.push(`/room/${enteredRoom.id}`)
     }
 
     return (

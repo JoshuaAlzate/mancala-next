@@ -8,6 +8,7 @@ import useSockClient from "hooks/useSockClient";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import getSessionPlayer from "utils/getSessionPlayer";
 
 interface HomeProps {
   initialRooms: RoomItemProps[];
@@ -19,13 +20,7 @@ const Home: NextPage = ({ initialRooms }: HomeProps) => {
   const roomsSubject = useSockClient("/topic/room-list-update");
   const router = useRouter();
 
-  useEffect(() => {
-    const currentPlayer = window.sessionStorage.getItem('currentPlayer');
-    if (currentPlayer) {
-      const sessionPlayerDetails = JSON.parse(currentPlayer);
-      setPlayer(sessionPlayerDetails);
-    }
-  }, []);
+  getSessionPlayer(setPlayer);
 
   useEffect(() => {
     roomsSubject?.subscribe((data: any) => {
@@ -39,6 +34,10 @@ const Home: NextPage = ({ initialRooms }: HomeProps) => {
 
   const openPlayerModal = () => {
     return typeof window !== 'undefined' && window.sessionStorage.getItem('currentPlayer');
+  }
+
+  const onClosePlayerModal = (playerDetails: PlayerItemProps) => {
+    setPlayer(playerDetails);
   }
 
   const roomCreation = async () => {
@@ -55,7 +54,7 @@ const Home: NextPage = ({ initialRooms }: HomeProps) => {
 
   return (
     <>
-      <PlayerForm openModal={!openPlayerModal()} />
+      <PlayerForm openModal={!openPlayerModal()} onCloseModal={onClosePlayerModal} />
       <NavBar />
       <Heading as={'h1'} size={'lg'}>Hey {player ? player.name : 'there'}!</Heading>
       <Button onClick={roomCreation} my={5}>Create a Room</Button>

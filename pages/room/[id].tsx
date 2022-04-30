@@ -7,6 +7,7 @@ import useSockClient from "hooks/useSockClient";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import getSessionPlayer from "utils/getSessionPlayer";
 
 const RoomTokenPage: NextPage = (room: RoomItemProps) => {
     const [player, setPlayer] = useState<PlayerItemProps>();
@@ -17,17 +18,12 @@ const RoomTokenPage: NextPage = (room: RoomItemProps) => {
     const router = useRouter();
     const { id } = router.query;
 
+    getSessionPlayer(setPlayer);
+
     useEffect(() => {
         window.sessionStorage.setItem('currentRoom', JSON.stringify(sessionRoom));
     }, [sessionRoom])
 
-    useEffect(() => {
-        const currentPlayer = window.sessionStorage.getItem('currentPlayer');
-        if (currentPlayer) {
-            const sessionPlayerDetails = JSON.parse(currentPlayer);
-            setPlayer(sessionPlayerDetails);
-        }
-    }, []);
 
     useEffect(() => {
         roomSubject?.subscribe((data: RoomItemProps[]) => {
