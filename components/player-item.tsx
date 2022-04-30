@@ -30,7 +30,7 @@ const PlayerItem = ({ id, name, level, isReady }: PlayerItemProps) => {
     }, [isReady])
 
     const sendReadiness = async () => {
-        const result = await fetch(`${process.env.NEXT_PUBLIC_HOST}/player/setReady`, {
+        await fetch(`${process.env.NEXT_PUBLIC_HOST}/player/setReady`, {
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -41,8 +41,6 @@ const PlayerItem = ({ id, name, level, isReady }: PlayerItemProps) => {
                 isReady: sessionIsReady
             })
         });
-        const updatedPlayer = await result.json() as Promise<PlayerItemProps>;
-        console.log(updatedPlayer);
     }
 
     useEffect(() => {
