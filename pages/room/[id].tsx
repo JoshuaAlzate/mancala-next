@@ -54,6 +54,10 @@ const RoomTokenPage: NextPage = (room: RoomItemProps) => {
         };
     }, [router, player]);
 
+    useEffect(() => {
+        if (sessionRoom.gameID) router.push(`/game/${sessionRoom.gameID}`)
+    }, [sessionRoom.gameID]);
+
     const exitRoom = async (playerID: string | undefined) => {
         return await fetch(`${process.env.NEXT_PUBLIC_HOST}/room/checkRoomPlayers`, {
             body: JSON.stringify({
