@@ -6,9 +6,10 @@ import { PlayerItemProps } from "./player-item";
 
 export interface PlayerFormProp {
     openModal?: boolean;
+    onCloseModal?: (playerDetails: PlayerItemProps) => void;
 }
 
-const PlayerForm = ({ openModal }: PlayerFormProp) => {
+const PlayerForm = ({ openModal, onCloseModal }: PlayerFormProp) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const initialRef = useRef();
@@ -25,7 +26,7 @@ const PlayerForm = ({ openModal }: PlayerFormProp) => {
             },
             method: 'PUT'
         });
-        return await result.json();
+        return await (await result.json() as Promise<PlayerItemProps>);
     }
 
     return (
@@ -47,6 +48,7 @@ const PlayerForm = ({ openModal }: PlayerFormProp) => {
                         }
                         const player = await submitPlayerForm(values);
                         if (typeof window !== 'undefined') window.sessionStorage.setItem('currentPlayer', JSON.stringify(player));
+                        if(onCloseModal) onCloseModal(player);
 
                         onClose();
                     }}>
