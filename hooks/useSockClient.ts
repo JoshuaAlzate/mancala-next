@@ -13,9 +13,8 @@ const useSockClient = (url: string) => {
         let webSocket = new SockJS(`${process.env.NEXT_PUBLIC_WEB_SOCKET}`);
         let stompClient = Stomp.over(webSocket);
         if (stompClient) {
-            stompClient.connect({}, (frame: any) => {
-
-                console.log("connected to the frame: " + frame);
+            stompClient.connect({}, (data: any) => {
+                console.log("connected to the data: " + data);
                 stompClient.subscribe(url, (response) => {
                     let data = JSON.parse(response.body);
                     stompSubject.next(data);
